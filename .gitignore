@@ -1,0 +1,10 @@
+*.csv
+processed_data/
+Completed Notebooks/
+Notebook 1 plots/
+Notebook 3 plots/
+*.ipynb
+.DS_Store
+__pycache__/
+*.pyc
+.env
