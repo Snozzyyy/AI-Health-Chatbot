@@ -198,17 +198,26 @@ with st.sidebar:
     )
     st.markdown("---")
 
-    secrets_key = st.secrets.get("GEMINI_API_KEY", "") if hasattr(st, "secrets") else ""
-    default_key = os.environ.get("GEMINI_API_KEY", "") or secrets_key
-    api_key = st.text_input(
-        "Google Gemini API Key",
-        value=default_key,
-        type="password",
-        help="Enter your Gemini API key to enable AI features",
-        key="api_key_input"
-    )
-    if api_key:
-        st.session_state["api_key"] = api_key
+    secrets_key = ""
+    try:
+        secrets_key = st.secrets.get("GEMINI_API_KEY", "")
+    except Exception:
+        pass
+    env_key = os.environ.get("GEMINI_API_KEY", "")
+    auto_key = env_key or secrets_key
+
+    if auto_key:
+        st.session_state["api_key"] = auto_key
+        st.success("API key loaded automatically.")
+    else:
+        api_key = st.text_input(
+            "Google Gemini API Key",
+            type="password",
+            help="Enter your Gemini API key to enable AI features",
+            key="api_key_input"
+        )
+        if api_key:
+            st.session_state["api_key"] = api_key
 
     st.markdown("---")
     st.error(
