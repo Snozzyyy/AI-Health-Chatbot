@@ -1,5 +1,0 @@
-streamlit
-tensorflow
-numpy
-google-genai
-scikit-learn
